@@ -24,10 +24,16 @@ let reducer = (state, action) => {
 };
 
 [@bs.module "../Firebase.js"] external saveUser: unit => unit = "default";
+[@bs.module "../Firebase.js"] external readItems: unit => unit = "readItems";
 
 [@react.component]
 let make = () => {
   let (state, dispatch) = React.useReducer(reducer, initialState);
+
+  React.useEffect(() => {
+    readItems();
+    None;
+  });
 
   // We can use a fragment here, but we don't, because we want to style the counter
   <div
