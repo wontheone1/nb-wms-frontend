@@ -6,7 +6,8 @@
     "dev": "parcel index.html",
     "start": "bsb -make-world -w -ws _ ",
     "clean": "bsb -clean-world",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "firebase deploy --only firestore:rules,hosting"
   },
   "keywords": [
     "BuckleScript",
