@@ -18,6 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "firebase": "7.14.2",
+    "firebaseui": "4.5.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "reason-react": "0.7.1"
