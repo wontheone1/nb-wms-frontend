@@ -7,7 +7,8 @@
     "start": "bsb -make-world -w -ws _ ",
     "clean": "bsb -clean-world",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "firebase deploy --only firestore:rules,hosting"
+    "deploy": "firebase deploy --only firestore:rules,hosting",
+    "local-deploy": "firebase serve --only hosting"
   },
   "keywords": [
     "BuckleScript",
