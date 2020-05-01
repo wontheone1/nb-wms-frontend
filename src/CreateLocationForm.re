@@ -2,21 +2,34 @@
 let leftButtonStyle =
   ReactDOMRe.Style.make(~borderRadius="4px 0px 0px 4px", ~width="48px", ());
 
-let handleSubmit = desc => Firebase.createLocation("abcde", desc);
-
 [@react.component]
 let make = () => {
+  let (locationIdValue, setLocationIdValue) = React.useState(() => "");
   let (descValue, setDescValue) = React.useState(() => "");
   <form
-    id="descriptionForm"
+    id="locationForm"
     onSubmit={e => {
       ReactEvent.Form.preventDefault(e);
-      handleSubmit(descValue);
+      Firebase.createLocation(locationIdValue, descValue);
+      setLocationIdValue(_ => "");
+      setDescValue(_ => "");
     }}>
+    <label>
+      {React.string("Location ID: ")}
+      <input
+        id="locationIdInput"
+        type_="text"
+        value=locationIdValue
+        onChange={(event: ReactEvent.Form.t) => {
+          ReactEvent.Form.persist(event);
+          setLocationIdValue(_ => ReactEvent.Form.target(event)##value);
+        }}
+      />
+    </label>
     <label>
       {React.string("Description: ")}
       <input
-        id="descriptionFormInput"
+        id="locationDescriptionInput"
         type_="text"
         value=descValue
         onChange={(event: ReactEvent.Form.t) => {
