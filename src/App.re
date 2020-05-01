@@ -33,7 +33,7 @@ let make = () => {
 
   React.useEffect(() => {
     Firebase.mountSignInUI();
-    Firebase.readItems();
+    Firebase.readLocations();
     None;
   });
 
