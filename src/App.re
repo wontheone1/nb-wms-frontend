@@ -33,7 +33,6 @@ let make = () => {
 
   React.useEffect(() => {
     Firebase.mountSignInUI();
-    Firebase.readLocations();
     None;
   });
 
@@ -43,6 +42,7 @@ let make = () => {
       <div id="sign-in-status" />
       <div id="account-details" />
     </div>
+    <Locations />
     <div style=sessionInfoStyle>
       <button style=rightButtonStyle onClick={_event => Firebase.signOut()}>
         {React.string("Sign out")}
