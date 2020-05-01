@@ -2,7 +2,4 @@
 
 [@bs.val] external document: Js.t({..}) = "document";
 
-ReactDOMRe.renderToElementWithId(
-  <ReducerFromReactJSDocs />,
-  "app"
-);
+ReactDOMRe.renderToElementWithId(<App />, "app");
