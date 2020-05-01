@@ -22,3 +22,4 @@ Cargo.lock
 # Parcel related files
 dist/
 .cache/
+.idea/
