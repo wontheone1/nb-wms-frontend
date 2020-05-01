@@ -4,5 +4,5 @@
 
 ReactDOMRe.renderToElementWithId(
   <ReducerFromReactJSDocs />,
-  "app",
+  "app"
 );
