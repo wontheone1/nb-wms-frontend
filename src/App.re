@@ -50,8 +50,12 @@ let make = () => {
       <button style=leftButtonStyle onClick={_event => Firebase.signOut()}>
         {React.string("Sign out")}
       </button>
-      <button style=leftButtonStyle onClick={_event => Firebase.saveUser()}>
-        {React.string("-")}
+      <button
+        style=leftButtonStyle
+        onClick={_event =>
+          Firebase.createLocation("abcde", "shelf level 1/section 1")
+        }>
+        {React.string("Create/Update Location")}
       </button>
     </div>
   </div>;

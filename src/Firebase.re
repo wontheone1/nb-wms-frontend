@@ -1,4 +1,5 @@
-[@bs.module "./Firebase.js"] external saveUser: unit => unit = "default";
+[@bs.module "./Firebase.js"]
+external createLocation: (string, string) => unit = "createLocation";
 [@bs.module "./Firebase.js"] external readItems: unit => unit = "readItems";
 [@bs.module "./FirebaseAuth.js"]
 external mountSignInUI: unit => unit = "default";
