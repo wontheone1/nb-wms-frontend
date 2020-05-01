@@ -30,19 +30,13 @@ let reducer = (state, action) => {
   };
 };
 
-[@bs.module "../Firebase.js"] external saveUser: unit => unit = "default";
-[@bs.module "../Firebase.js"] external readItems: unit => unit = "readItems";
-[@bs.module "../FirebaseAuth.js"]
-external mountSignInUI: unit => unit = "default";
-[@bs.module "../FirebaseAuth.js"] external signOut: unit => unit = "signOut";
-
 [@react.component]
 let make = () => {
   let (state, dispatch) = React.useReducer(reducer, initialState);
 
   React.useEffect(() => {
-    mountSignInUI();
-    readItems();
+    Firebase.mountSignInUI();
+    Firebase.readItems();
     None;
   });
 
@@ -53,10 +47,10 @@ let make = () => {
       <div id="account-details" />
     </div>
     <div style=sessionInfoStyle>
-      <button style=leftButtonStyle onClick={_event => signOut()}>
+      <button style=leftButtonStyle onClick={_event => Firebase.signOut()}>
         {React.string("Sign out")}
       </button>
-      <button style=leftButtonStyle onClick={_event => saveUser()}>
+      <button style=leftButtonStyle onClick={_event => Firebase.saveUser()}>
         {React.string("-")}
       </button>
     </div>
