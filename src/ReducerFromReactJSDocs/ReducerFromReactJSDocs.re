@@ -47,13 +47,19 @@ let make = () => {
       (),
     )}>
     <div>
-      {React.string("Count: ")}
-      {React.string(string_of_int(state.count))}
+      <div id="sign-in-status"></div>
+      <div id="account-details"></div>
     </div>
     <div>
-      <button style=leftButtonStyle onClick={_event => saveUser()}>
-        {React.string("-")}
-      </button>
+      <div>
+        {React.string("Count: ")}
+        {React.string(string_of_int(state.count))}
+      </div>
+      <div>
+        <button style=leftButtonStyle onClick={_event => saveUser()}>
+          {React.string("-")}
+        </button>
+      </div>
     </div>
   </div>;
 };
