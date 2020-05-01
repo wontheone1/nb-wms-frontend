@@ -1,9 +1,6 @@
 // This is the ReactJS documentation's useReducer example, directly ported over
 // https://reactjs.org/docs/hooks-reference.html#usereducer
 
-// A little extra we've put, because the ReactJS example has no styling
-let leftButtonStyle =
-  ReactDOMRe.Style.make(~borderRadius="4px 0px 0px 4px", ~width="48px", ());
 let rightButtonStyle =
   ReactDOMRe.Style.make(~borderRadius="0px 4px 4px 0px", ~width="48px", ());
 let sessionInfoStyle =
@@ -47,16 +44,10 @@ let make = () => {
       <div id="account-details" />
     </div>
     <div style=sessionInfoStyle>
-      <button style=leftButtonStyle onClick={_event => Firebase.signOut()}>
+      <button style=rightButtonStyle onClick={_event => Firebase.signOut()}>
         {React.string("Sign out")}
       </button>
-      <button
-        style=leftButtonStyle
-        onClick={_event =>
-          Firebase.createLocation("abcde", "shelf level 1/section 1")
-        }>
-        {React.string("Create/Update Location")}
-      </button>
+      <CreateLocationForm />
     </div>
   </div>;
 };
