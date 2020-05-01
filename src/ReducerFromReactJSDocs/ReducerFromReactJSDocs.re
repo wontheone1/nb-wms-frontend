@@ -6,6 +6,8 @@ let leftButtonStyle =
   ReactDOMRe.Style.make(~borderRadius="4px 0px 0px 4px", ~width="48px", ());
 let rightButtonStyle =
   ReactDOMRe.Style.make(~borderRadius="0px 4px 4px 0px", ~width="48px", ());
+let sessionInfoStyle =
+  ReactDOMRe.Style.make(~borderRadius="0px 4px 4px 0px", ~width="48px", ~display="block", ());
 
 // Record and variant need explicit declarations.
 type state = {count: int};
@@ -27,6 +29,8 @@ let reducer = (state, action) => {
 [@bs.module "../Firebase.js"] external readItems: unit => unit = "readItems";
 [@bs.module "../FirebaseAuth.js"]
 external mountSignInUI: unit => unit = "default";
+[@bs.module "../FirebaseAuth.js"]
+external signOut: unit => unit = "signOut";
 
 [@react.component]
 let make = () => {
@@ -39,27 +43,18 @@ let make = () => {
   });
 
   // We can use a fragment here, but we don't, because we want to style the counter
-  <div
-    style={ReactDOMRe.Style.make(
-      ~display="flex",
-      ~alignItems="center",
-      ~justifyContent="space-between",
-      (),
-    )}>
-    <div>
+  <div>
+    <div style=sessionInfoStyle>
       <div id="sign-in-status"></div>
       <div id="account-details"></div>
     </div>
-    <div>
-      <div>
-        {React.string("Count: ")}
-        {React.string(string_of_int(state.count))}
-      </div>
-      <div>
+    <div style=sessionInfoStyle>
+        <button style=leftButtonStyle onClick={_event => signOut()}>
+          {React.string("Sign out")}
+        </button>
         <button style=leftButtonStyle onClick={_event => saveUser()}>
           {React.string("-")}
         </button>
-      </div>
     </div>
   </div>;
 };
