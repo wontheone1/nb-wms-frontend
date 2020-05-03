@@ -2,6 +2,8 @@
   "name": "nb-wms-frontend",
   "version": "0.1.0",
   "scripts": {
+    "bs:build": "bsb -make-world",
+    "bs:clean": "bsb -clean-world",
     "build": "bsb -make-world && parcel build index.html",
     "dev": "parcel index.html",
     "start": "bsb -make-world -w -ws _ ",
@@ -20,6 +22,7 @@
   "dependencies": {
     "firebase": "7.14.2",
     "firebaseui": "4.5.0",
+    "gentype": "3.22.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "reason-react": "0.7.1"

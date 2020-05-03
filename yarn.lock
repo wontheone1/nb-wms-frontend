@@ -2681,6 +2681,11 @@ gensync@^1.0.0-beta.1:
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.1.tgz#58f4361ff987e5ff6e1e7a210827aa371eaac269"
   integrity sha512-r8EC6NO1sngH/zdD9fiRDLdcgnbayXah+mLgManTaIZJqEC1MZstmnox8KpnI2/fxQwrp5OpCOYWLp4rBl4Jcg==
 
+gentype@3.22.0:
+  version "3.22.0"
+  resolved "https://registry.yarnpkg.com/gentype/-/gentype-3.22.0.tgz#88d07a6352037d108458646a398350ce20612ee3"
+  integrity sha512-30tJrp6uWXODFzb+mWcW0sqbs5WB/3YHKV55IMPEMXZDDpjIDhpC3+8e0TRl8QzzOeZIaKYAD6XzcYM4KRA+1w==
+
 get-caller-file@^2.0.1:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
