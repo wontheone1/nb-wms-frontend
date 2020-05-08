@@ -53,7 +53,7 @@ let make = () => {
       <div id="sign-in-status" />
       <div id="account-details" />
     </div>
-    <Locations />
+    <Locations signedIn />
     <div style=sessionInfoStyle>
       {signedIn
          ? <button style=rightButtonStyle onClick={_event => signOut()}>

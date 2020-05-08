@@ -1,5 +1,5 @@
 [@react.component]
-let make = () => {
+let make = (~signedIn) => {
   let initialLocations: array(Model.location) = [||];
   let (locations: array(Model.location), setLocations) =
     React.useState(() => initialLocations);
@@ -9,14 +9,16 @@ let make = () => {
       Firebase.readLocations(setLocations);
       None;
     },
-    [||],
+    [|signedIn|],
   );
 
-  Array.map(
-    (loc: Model.location) => {
-      <div> {React.string(loc.id ++ ": " ++ loc.desc)} </div>
-    },
-    locations,
-  )
-  ->React.array;
+  signedIn
+    ? Array.map(
+        (loc: Model.location) => {
+          <div> {React.string(loc.id ++ ": " ++ loc.desc)} </div>
+        },
+        locations,
+      )
+      ->React.array
+    : <div />;
 };
