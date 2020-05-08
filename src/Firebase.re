@@ -11,4 +11,7 @@ external readLocations:
 [@bs.module "./FirebaseAuth.js"]
 external mountSignInUI: unit => unit = "default";
 
+[@bs.module "./FirebaseAuth.js"]
+external initApp: ((bool => bool) => unit) => unit = "initApp";
+
 [@bs.module "./FirebaseAuth.js"] external signOut: unit => unit = "signOut";

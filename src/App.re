@@ -30,6 +30,17 @@ let reducer = (state, action) => {
 [@react.component]
 let make = () => {
   let (state, dispatch) = React.useReducer(reducer, initialState);
+  let (signedIn, setSignedIn) = React.useState(() => false);
+
+  let signOut = () => {
+    setSignedIn(_ => false);
+    Firebase.signOut();
+  };
+
+  React.useEffect0(() => {
+    Firebase.initApp(setSignedIn);
+    None;
+  });
 
   React.useEffect(() => {
     Firebase.mountSignInUI();
@@ -44,9 +55,11 @@ let make = () => {
     </div>
     <Locations />
     <div style=sessionInfoStyle>
-      <button style=rightButtonStyle onClick={_event => Firebase.signOut()}>
-        {React.string("Sign out")}
-      </button>
+      {signedIn
+         ? <button style=rightButtonStyle onClick={_event => signOut()}>
+             {React.string("Sign out")}
+           </button>
+         : <p> {React.string("Signed out")} </p>}
       <CreateLocationForm />
     </div>
   </div>;
