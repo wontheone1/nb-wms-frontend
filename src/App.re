@@ -1,6 +1,8 @@
 // This is the ReactJS documentation's useReducer example, directly ported over
 // https://reactjs.org/docs/hooks-reference.html#usereducer
 
+module Ui = SemanticUi;
+
 let rightButtonStyle =
   ReactDOMRe.Style.make(~borderRadius="0px 4px 4px 0px", ~width="48px", ());
 let sessionInfoStyle =
@@ -53,12 +55,13 @@ let make = () => {
       <div id="sign-in-status" />
       <div id="account-details" />
     </div>
+    <Ui.Button> {React.string("button")} </Ui.Button>
     <Locations signedIn />
     <div style=sessionInfoStyle>
       {signedIn
-         ? <button style=rightButtonStyle onClick={_event => signOut()}>
+         ? <Ui.Button onClick={_event => signOut()}>
              {React.string("Sign out")}
-           </button>
+           </Ui.Button>
          : <p> {React.string("Signed out")} </p>}
       <CreateLocationForm />
     </div>
