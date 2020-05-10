@@ -2,21 +2,11 @@ module Ui = SemanticUi;
 
 type location = Model.location;
 
-type sortDirection =
-  | Ascending
-  | Descending;
-
 type column =
   | Id
   | Description;
 
-let sortDirectionToStringOption = direction => {
-  switch (direction) {
-  | Some(Ascending) => Some("ascending")
-  | Some(Descending) => Some("descending")
-  | None => None
-  };
-};
+type sortDirection = Ui.Table.sortDirection;
 
 [@react.component]
 let make = (~signedIn) => {
@@ -25,12 +15,12 @@ let make = (~signedIn) => {
     React.useState(() => initialLocations);
 
   let (sortedByColumn, setSortedByColumn) = React.useState(() => Id);
-  let (direction, setDirection) = React.useState(() => Some(Ascending));
+  let (direction, setDirection) = React.useState(() => Ui.Table.Ascending);
 
   let handleSort = (clickedColumn: column, _: ReactEvent.Mouse.t) =>
     if (sortedByColumn != clickedColumn) {
       setSortedByColumn(_ => clickedColumn);
-      setDirection(_ => Some(Ascending));
+      setDirection(_ => Ui.Table.Ascending);
       setLocations(oldLocations =>
         Belt.SortArray.stableSortBy(
           oldLocations, (locA: location, locB: location) =>
@@ -43,9 +33,9 @@ let make = (~signedIn) => {
     } else {
       setDirection(oldDirection =>
         switch (oldDirection) {
-        | Some(Ascending) => Some(Descending)
-        | Some(Descending) => Some(Ascending)
-        | None => Some(Ascending)
+        | Ui.Table.Ascending => Ui.Table.Descending
+        | Ui.Table.Descending => Ui.Table.Ascending
+        | Ui.Table.NoDirection => Ui.Table.Ascending
         }
       );
       setLocations(oldLocations => Belt.Array.reverse(oldLocations));
@@ -61,23 +51,14 @@ let make = (~signedIn) => {
         <Ui.Table.Header>
           <Ui.Table.Row>
             <Ui.Table.HeaderCell
-              sorted={
-                sortedByColumn == Id
-                  ? Js.Nullable.fromOption(
-                      sortDirectionToStringOption(direction),
-                    )
-                  : Js.Nullable.null
-              }
+              sorted={sortedByColumn == Id ? direction : Ui.Table.NoDirection}
               onClick={handleSort(Id)}>
               "ID"->React.string
             </Ui.Table.HeaderCell>
             <Ui.Table.HeaderCell
               sorted={
                 sortedByColumn == Description
-                  ? Js.Nullable.fromOption(
-                      sortDirectionToStringOption(direction),
-                    )
-                  : Js.Nullable.null
+                  ? direction : Ui.Table.NoDirection
               }
               onClick={handleSort(Description)}>
               "Description"->React.string

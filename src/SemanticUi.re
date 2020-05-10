@@ -47,12 +47,17 @@ module Table = {
       "Row";
   };
 
+  type sortDirection =
+    | Ascending
+    | Descending
+    | NoDirection;
+
   module HeaderCell = {
     [@bs.module "semantic-ui-react"] [@bs.scope "Table"] [@react.component]
     external make:
       (
         ~children: React.element,
-        ~sorted: Js.Nullable.t(string)=?,
+        ~sorted: sortDirection=?,
         ~celled: bool=?,
         ~fixed: bool=?,
         ~onClick: ReactEvent.Mouse.t => unit=?
