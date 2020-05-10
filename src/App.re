@@ -53,8 +53,12 @@ let make = () => {
   <div>
     <div style=sessionInfoStyle>
       <div id="signin-placeholder" />
-      <div id="sign-in-status" />
-      <div id="account-details" />
+      {signedIn
+         ? <div style=sessionInfoStyle>
+             <div id="sign-in-status" />
+             <div id="account-details" />
+           </div>
+         : <div />}
     </div>
     <Locations signedIn />
     <div style=sessionInfoStyle>
@@ -62,7 +66,7 @@ let make = () => {
          ? <Ui.Button onClick={_event => signOut()}>
              {React.string("Sign out")}
            </Ui.Button>
-         : <p> {React.string("Signed out")} </p>}
+         : <div />}
       <CreateLocationForm />
     </div>
   </div>;
