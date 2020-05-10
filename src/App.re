@@ -15,6 +15,7 @@ let sessionInfoStyle =
   );
 
 let hiddenDisplayStyle = ReactDOMRe.Style.make(~display="none", ());
+let signinPlaceholder = ReactDOMRe.Style.make();
 
 // Record and variant need explicit declarations.
 type state = {count: int};
@@ -73,10 +74,11 @@ let make = () => {
            : <div />}
       </Ui.Menu.Menu>
     </Ui.Menu>
-    <div style={signedIn ? hiddenDisplayStyle : sessionInfoStyle}>
-      <div id="signin-placeholder" />
-    </div>
-    <Locations signedIn />
-    <div style=sessionInfoStyle> <CreateLocationForm /> </div>
+    <div
+      style={signedIn ? hiddenDisplayStyle : signinPlaceholder}
+      id="signin-placeholder"
+    />
+    {signedIn
+       ? <div> <Locations signedIn /> <CreateLocationForm /> </div> : <div />}
   </div>;
 };
