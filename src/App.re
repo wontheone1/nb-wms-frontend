@@ -13,6 +13,8 @@ let sessionInfoStyle =
     (),
   );
 
+let hiddenDisplayStyle = ReactDOMRe.Style.make(~display="none", ());
+
 // Record and variant need explicit declarations.
 type state = {count: int};
 
@@ -51,7 +53,9 @@ let make = () => {
 
   // We can use a fragment here, but we don't, because we want to style the counter
   <div>
-    <div style=sessionInfoStyle> <div id="signin-placeholder" /> </div>
+    <div style={signedIn ? hiddenDisplayStyle : sessionInfoStyle}>
+      <div id="signin-placeholder" />
+    </div>
     {signedIn
        ? <div style=sessionInfoStyle>
            <div id="sign-in-status" />
