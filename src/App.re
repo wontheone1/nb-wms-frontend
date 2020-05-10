@@ -2,6 +2,7 @@
 // https://reactjs.org/docs/hooks-reference.html#usereducer
 
 module Ui = SemanticUi;
+module M = Model;
 
 let rightButtonStyle =
   ReactDOMRe.Style.make(~borderRadius="0px 4px 4px 0px", ~width="48px", ());
@@ -35,6 +36,8 @@ let reducer = (state, action) => {
 let make = () => {
   let (state, dispatch) = React.useReducer(reducer, initialState);
   let (signedIn, setSignedIn) = React.useState(() => false);
+  let (accountDetail: option(M.accountDetailType), setAccountDetail) =
+    React.useState(() => None);
 
   let signOut = () => {
     setSignedIn(_ => false);
@@ -42,7 +45,7 @@ let make = () => {
   };
 
   React.useEffect0(() => {
-    Firebase.initApp(setSignedIn);
+    Firebase.initApp(setSignedIn, setAccountDetail);
     None;
   });
 
@@ -56,12 +59,10 @@ let make = () => {
     <div style={signedIn ? hiddenDisplayStyle : sessionInfoStyle}>
       <div id="signin-placeholder" />
     </div>
-    {signedIn
-       ? <div style=sessionInfoStyle>
-           <div id="sign-in-status" />
-           <div id="account-details" />
-         </div>
-       : <div />}
+    {switch (accountDetail) {
+     | Some({displayName, email}) => React.string({j|$displayName($email)|j})
+     | None => React.string("Signed out")
+     }}
     <Locations signedIn />
     <div style=sessionInfoStyle>
       {signedIn
