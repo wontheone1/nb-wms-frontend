@@ -52,6 +52,7 @@ let make = () => {
   // We can use a fragment here, but we don't, because we want to style the counter
   <div>
     <div style=sessionInfoStyle>
+      <div id="signin-placeholder" />
       <div id="sign-in-status" />
       <div id="account-details" />
     </div>
