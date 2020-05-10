@@ -56,21 +56,27 @@ let make = () => {
 
   // We can use a fragment here, but we don't, because we want to style the counter
   <div>
+    <Ui.Menu secondary=true>
+      <Ui.Menu.Item>
+        {switch (accountDetail) {
+         | Some({displayName, email}) =>
+           React.string({j|$displayName($email)|j})
+         | None => React.string("Signed out")
+         }}
+      </Ui.Menu.Item>
+      <Ui.Menu.Menu position="right">
+        <Ui.Menu.Item>
+          <Ui.Input icon="search" placeholder="Search..." />
+        </Ui.Menu.Item>
+        {signedIn
+           ? <Ui.Menu.Item name="logout" onClick={_event => signOut()} />
+           : <div />}
+      </Ui.Menu.Menu>
+    </Ui.Menu>
     <div style={signedIn ? hiddenDisplayStyle : sessionInfoStyle}>
       <div id="signin-placeholder" />
     </div>
-    {switch (accountDetail) {
-     | Some({displayName, email}) => React.string({j|$displayName($email)|j})
-     | None => React.string("Signed out")
-     }}
     <Locations signedIn />
-    <div style=sessionInfoStyle>
-      {signedIn
-         ? <Ui.Button onClick={_event => signOut()}>
-             {React.string("Sign out")}
-           </Ui.Button>
-         : <div />}
-      <CreateLocationForm />
-    </div>
+    <div style=sessionInfoStyle> <CreateLocationForm /> </div>
   </div>;
 };

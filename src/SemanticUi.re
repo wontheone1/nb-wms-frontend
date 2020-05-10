@@ -6,6 +6,41 @@ module Button = {
     "Button";
 };
 
+module Input = {
+  [@bs.module "semantic-ui-react"] [@react.component]
+  external make:
+    (~children: React.element=?, ~icon: string=?, ~placeholder: string=?) =>
+    React.element =
+    "Input";
+};
+
+module Menu = {
+  [@bs.module "semantic-ui-react"] [@react.component]
+  external make:
+    (~children: React.element, ~secondary: bool=?) => React.element =
+    "Menu";
+
+  module Item = {
+    [@bs.module "semantic-ui-react"] [@bs.scope "Menu"] [@react.component]
+    external make:
+      (
+        ~active: bool=?,
+        ~children: React.element=?,
+        ~name: string=?,
+        ~onClick: ReactEvent.Mouse.t => unit=?
+      ) =>
+      React.element =
+      "Item";
+  };
+
+  module Menu = {
+    [@bs.module "semantic-ui-react"] [@bs.scope "Menu"] [@react.component]
+    external make:
+      (~children: React.element, ~position: string) => React.element =
+      "Menu";
+  };
+};
+
 module Table = {
   [@bs.module "semantic-ui-react"] [@react.component]
   external make:
