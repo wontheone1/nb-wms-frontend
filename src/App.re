@@ -55,7 +55,6 @@ let make = () => {
       <div id="sign-in-status" />
       <div id="account-details" />
     </div>
-    <Ui.Button> {React.string("button")} </Ui.Button>
     <Locations signedIn />
     <div style=sessionInfoStyle>
       {signedIn
