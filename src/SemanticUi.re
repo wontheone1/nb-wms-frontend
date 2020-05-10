@@ -7,9 +7,26 @@ module Button = {
 };
 
 module Input = {
+  type inputLabel = {
+    basic: bool,
+    content: string,
+  };
+  type inputAction = {
+    content: string,
+    onClick: ReactEvent.Mouse.t => unit,
+  };
   [@bs.module "semantic-ui-react"] [@react.component]
   external make:
-    (~children: React.element=?, ~icon: string=?, ~placeholder: string=?) =>
+    (
+      ~action: inputAction=?,
+      ~children: React.element=?,
+      ~icon: string=?,
+      ~id: string=?,
+      ~label: inputLabel=?,
+      ~onChange: ReactEvent.Form.t => unit=?,
+      ~placeholder: string=?,
+      ~value: string=?
+    ) =>
     React.element =
     "Input";
 };
