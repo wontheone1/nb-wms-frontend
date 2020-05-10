@@ -78,7 +78,6 @@ let make = () => {
       style={signedIn ? hiddenDisplayStyle : signinPlaceholder}
       id="signin-placeholder"
     />
-    {signedIn
-       ? <div> <Locations signedIn /> <CreateLocationForm /> </div> : <div />}
+    {signedIn ? <div> <Locations /> <CreateLocationForm /> </div> : <div />}
   </div>;
 };

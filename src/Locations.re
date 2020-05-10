@@ -9,7 +9,7 @@ type column =
 type sortDirection = Ui.Table.sortDirection;
 
 [@react.component]
-let make = (~signedIn) => {
+let make = () => {
   let initialLocations: array(location) = [||];
   let (locations: array(location), setLocations) =
     React.useState(() => initialLocations);
@@ -46,37 +46,34 @@ let make = (~signedIn) => {
     None;
   });
 
-  signedIn
-    ? <Ui.Table sortable=true celled=true fixed=true>
-        <Ui.Table.Header>
-          <Ui.Table.Row>
-            <Ui.Table.HeaderCell
-              sorted={sortedByColumn == Id ? direction : Ui.Table.NoDirection}
-              onClick={handleSort(Id)}>
-              "ID"->React.string
-            </Ui.Table.HeaderCell>
-            <Ui.Table.HeaderCell
-              sorted={
-                sortedByColumn == Description
-                  ? direction : Ui.Table.NoDirection
-              }
-              onClick={handleSort(Description)}>
-              "Description"->React.string
-            </Ui.Table.HeaderCell>
-          </Ui.Table.Row>
-        </Ui.Table.Header>
-        <Ui.Table.Body>
-          {Array.map(
-             (loc: location) => {
-               <Ui.Table.Row key={loc.id}>
-                 <Ui.Table.Cell> loc.id->React.string </Ui.Table.Cell>
-                 <Ui.Table.Cell> loc.desc->React.string </Ui.Table.Cell>
-               </Ui.Table.Row>
-             },
-             locations,
-           )
-           ->React.array}
-        </Ui.Table.Body>
-      </Ui.Table>
-    : <div />;
+  <Ui.Table sortable=true celled=true fixed=true>
+    <Ui.Table.Header>
+      <Ui.Table.Row>
+        <Ui.Table.HeaderCell
+          sorted={sortedByColumn == Id ? direction : Ui.Table.NoDirection}
+          onClick={handleSort(Id)}>
+          "ID"->React.string
+        </Ui.Table.HeaderCell>
+        <Ui.Table.HeaderCell
+          sorted={
+            sortedByColumn == Description ? direction : Ui.Table.NoDirection
+          }
+          onClick={handleSort(Description)}>
+          "Description"->React.string
+        </Ui.Table.HeaderCell>
+      </Ui.Table.Row>
+    </Ui.Table.Header>
+    <Ui.Table.Body>
+      {Array.map(
+         (loc: location) => {
+           <Ui.Table.Row key={loc.id}>
+             <Ui.Table.Cell> loc.id->React.string </Ui.Table.Cell>
+             <Ui.Table.Cell> loc.desc->React.string </Ui.Table.Cell>
+           </Ui.Table.Row>
+         },
+         locations,
+       )
+       ->React.array}
+    </Ui.Table.Body>
+  </Ui.Table>;
 };
