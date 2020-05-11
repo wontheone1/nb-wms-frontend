@@ -9,7 +9,7 @@ type column =
 type sortDirection = Ui.Table.sortDirection;
 
 [@react.component]
-let make = () => {
+let make = (~searchQuery: string) => {
   let initialLocations: array(location) = [||];
   let (locations: array(location), setLocations) =
     React.useState(() => initialLocations);
@@ -64,15 +64,19 @@ let make = () => {
       </Ui.Table.Row>
     </Ui.Table.Header>
     <Ui.Table.Body>
-      {Array.map(
-         (loc: location) => {
+      {Belt.Array.keep(locations, (loc: location) =>
+         if (searchQuery == "") {
+           true;
+         } else {
+           loc.id == searchQuery || loc.desc == searchQuery;
+         }
+       )
+       ->Belt.Array.map((loc: location) => {
            <Ui.Table.Row key={loc.id}>
              <Ui.Table.Cell> loc.id->React.string </Ui.Table.Cell>
              <Ui.Table.Cell> loc.desc->React.string </Ui.Table.Cell>
            </Ui.Table.Row>
-         },
-         locations,
-       )
+         })
        ->React.array}
     </Ui.Table.Body>
   </Ui.Table>;

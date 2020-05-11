@@ -18,18 +18,16 @@ let hiddenDisplayStyle = ReactDOMRe.Style.make(~display="none", ());
 let signinPlaceholder = ReactDOMRe.Style.make();
 
 // Record and variant need explicit declarations.
-type state = {count: int};
+type state = {searchQuery: string};
 
 type action =
-  | Increment
-  | Decrement;
+  | SetSearchQuery(string);
 
-let initialState = {count: 0};
+let initialState = {searchQuery: ""};
 
 let reducer = (state, action) => {
   switch (action) {
-  | Increment => {count: state.count + 1}
-  | Decrement => {count: state.count - 1}
+  | SetSearchQuery(query) => {searchQuery: query}
   };
 };
 
@@ -67,7 +65,14 @@ let make = () => {
       </Ui.Menu.Item>
       <Ui.Menu.Menu position="right">
         <Ui.Menu.Item>
-          <Ui.Input icon="search" placeholder="Search..." />
+          <Ui.Input
+            icon="search"
+            onChange={event => {
+              let value = ReactEvent.Form.target(event)##value;
+              dispatch(SetSearchQuery(value));
+            }}
+            placeholder="Search..."
+          />
         </Ui.Menu.Item>
         {signedIn
            ? <Ui.Menu.Item name="logout" onClick={_event => signOut()} />
@@ -78,6 +83,11 @@ let make = () => {
       style={signedIn ? hiddenDisplayStyle : signinPlaceholder}
       id="signin-placeholder"
     />
-    {signedIn ? <div> <Locations /> <CreateLocationForm /> </div> : <div />}
+    {signedIn
+       ? <div>
+           <Locations searchQuery={state.searchQuery} />
+           <CreateLocationForm />
+         </div>
+       : <div />}
   </div>;
 };
