@@ -78,6 +78,12 @@ let make = () => {
             placeholder={j|검색...|j}
           />
         </Ui.Menu.Item>
+        <Ui.Menu.Item>
+          <Ui.Modal
+            basic=true size="small" trigger={<Ui.Icon name="info circle" />}>
+            <p> "Hello world"->React.string </p>
+          </Ui.Modal>
+        </Ui.Menu.Item>
         {signedIn
            ? <Ui.Menu.Item name="logout" onClick={_event => signOut()} />
            : <div />}

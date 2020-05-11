@@ -12,6 +12,12 @@ module Header = {
     "Header";
 };
 
+module Icon = {
+  [@bs.module "semantic-ui-react"] [@react.component]
+  external make: (~children: React.element=?, ~name: string=?) => React.element =
+    "Icon";
+};
+
 module Input = {
   type inputLabel = {
     basic: bool,
@@ -61,6 +67,24 @@ module Menu = {
     external make:
       (~children: React.element, ~position: string) => React.element =
       "Menu";
+  };
+};
+
+module Modal = {
+  [@bs.module "semantic-ui-react"] [@react.component]
+  external make:
+    (
+      ~children: React.element,
+      ~basic: bool=?,
+      ~size: string=?,
+      ~trigger: React.element=?
+    ) =>
+    React.element =
+    "Modal";
+
+  module Content = {
+    [@bs.module "semantic-ui-react"] [@bs.scope "Modal"] [@react.component]
+    external make: (~children: React.element) => React.element = "Content";
   };
 };
 
