@@ -21,7 +21,7 @@ let make = () => {
     />
     <Ui.Input
       action={
-        content: "Submit",
+        content: {j|추가|j},
         onClick: e =>
           {ReactEvent.Mouse.preventDefault(e);
            Firebase.createLocation(locationIdValue, descValue);
