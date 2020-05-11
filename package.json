@@ -22,6 +22,7 @@
   "dependencies": {
     "firebase": "7.14.2",
     "firebaseui": "4.5.0",
+    "fuse.js": "5.2.3",
     "gentype": "3.22.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",

@@ -8,6 +8,8 @@ type column =
 
 type sortDirection = Ui.Table.sortDirection;
 
+Js.log2("lollol", FuseJs.result);
+
 [@react.component]
 let make = (~searchQuery: string) => {
   let initialLocations: array(location) = [||];
