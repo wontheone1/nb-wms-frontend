@@ -55,7 +55,7 @@ let make = () => {
 
   // We can use a fragment here, but we don't, because we want to style the counter
   <div>
-    <Ui.Header as_="h3">
+    <Ui.Header _as="h2">
       {j|NB 웨어하우스 메니지먼트 시스템에 오신 것을 환영합니다.|j}
       ->React.string
     </Ui.Header>

@@ -8,7 +8,7 @@ module Button = {
 
 module Header = {
   [@bs.module "semantic-ui-react"] [@react.component]
-  external make: (~children: React.element, ~as_: string=?) => React.element =
+  external make: (~children: React.element, ~_as: string=?) => React.element =
     "Header";
 };
 
