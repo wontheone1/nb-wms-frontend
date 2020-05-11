@@ -81,7 +81,11 @@ let make = () => {
         <Ui.Menu.Item>
           <Ui.Modal
             basic=true size="small" trigger={<Ui.Icon name="info circle" />}>
-            <p> "Hello world"->React.string </p>
+            <a
+              href="https://fusejs.io/examples.html#extended-search"
+              target="_blank">
+              "https://fusejs.io/examples.html#extended-search"->React.string
+            </a>
           </Ui.Modal>
         </Ui.Menu.Item>
         {signedIn
