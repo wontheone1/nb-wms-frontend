@@ -8,8 +8,6 @@ type column =
 
 type sortDirection = Ui.Table.sortDirection;
 
-Js.log2("lollol", FuseJs.result);
-
 [@react.component]
 let make = (~searchQuery: string) => {
   let initialLocations: array(location) = [||];
@@ -66,13 +64,29 @@ let make = (~searchQuery: string) => {
       </Ui.Table.Row>
     </Ui.Table.Header>
     <Ui.Table.Body>
-      {Belt.Array.keep(locations, (loc: location) =>
-         if (searchQuery == "") {
-           true;
-         } else {
-           loc.id == searchQuery || loc.desc == searchQuery;
-         }
-       )
+      {let filteredLocations: array(location) =
+         switch (searchQuery) {
+         | "" => locations
+         | _ =>
+           let result =
+             FuseJs.createFuse(locations, FuseJs.fuseOptions)
+             ->FuseJs.search(searchQuery);
+
+           Js.log2("Search result", result);
+
+           Belt.Array.map(
+             result,
+             (searchedLocation: FuseJs.searchedLocation) => {
+               let loc: location = {
+                 id: searchedLocation.item.id,
+                 desc: searchedLocation.item.desc,
+               };
+               loc;
+             },
+           );
+         };
+
+       filteredLocations
        ->Belt.Array.map((loc: location) => {
            <Ui.Table.Row key={loc.id}>
              <Ui.Table.Cell> loc.id->React.string </Ui.Table.Cell>
