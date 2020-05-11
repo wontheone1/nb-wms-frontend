@@ -13,8 +13,8 @@ let make = () => {
       id="locationIdInput"
       label={basic: true, content: "Id"}
       onChange={(event: ReactEvent.Form.t) => {
-        ReactEvent.Form.persist(event);
-        setLocationIdValue(_ => ReactEvent.Form.target(event)##value);
+        let value = ReactEvent.Form.target(event)##value;
+        setLocationIdValue(_ => value);
       }}
       placeholder="Enter barcode"
       value=locationIdValue
@@ -31,8 +31,8 @@ let make = () => {
       id="locationDescriptionInput"
       label={basic: true, content: "Description"}
       onChange={(event: ReactEvent.Form.t) => {
-        ReactEvent.Form.persist(event);
-        setDescValue(_ => ReactEvent.Form.target(event)##value);
+        let value = ReactEvent.Form.target(event)##value;
+        setDescValue(_ => value);
       }}
       placeholder="Enter description"
       value=descValue
