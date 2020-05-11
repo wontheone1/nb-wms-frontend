@@ -52,14 +52,14 @@ let make = (~searchQuery: string) => {
         <Ui.Table.HeaderCell
           sorted={sortedByColumn == Id ? direction : Ui.Table.NoDirection}
           onClick={handleSort(Id)}>
-          "ID"->React.string
+          {j|위치 아이디|j}->React.string
         </Ui.Table.HeaderCell>
         <Ui.Table.HeaderCell
           sorted={
             sortedByColumn == Description ? direction : Ui.Table.NoDirection
           }
           onClick={handleSort(Description)}>
-          "Description"->React.string
+          {j|세부사항|j}->React.string
         </Ui.Table.HeaderCell>
       </Ui.Table.Row>
     </Ui.Table.Header>

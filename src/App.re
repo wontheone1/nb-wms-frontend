@@ -55,12 +55,16 @@ let make = () => {
 
   // We can use a fragment here, but we don't, because we want to style the counter
   <div>
+    <Ui.Header as_="h3">
+      {j|NB 웨어하우스 메니지먼트 시스템에 오신 것을 환영합니다.|j}
+      ->React.string
+    </Ui.Header>
     <Ui.Menu secondary=true>
       <Ui.Menu.Item>
         {switch (accountDetail) {
          | Some({displayName, email}) =>
            React.string({j|$displayName($email)|j})
-         | None => React.string("Signed out")
+         | None => React.string({j|로그아웃 됨|j})
          }}
       </Ui.Menu.Item>
       <Ui.Menu.Menu position="right">
@@ -71,7 +75,7 @@ let make = () => {
               let value = ReactEvent.Form.target(event)##value;
               dispatch(SetSearchQuery(value));
             }}
-            placeholder="Search..."
+            placeholder={j|검색...|j}
           />
         </Ui.Menu.Item>
         {signedIn

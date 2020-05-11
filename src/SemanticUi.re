@@ -6,6 +6,12 @@ module Button = {
     "Button";
 };
 
+module Header = {
+  [@bs.module "semantic-ui-react"] [@react.component]
+  external make: (~children: React.element, ~as_: string=?) => React.element =
+    "Header";
+};
+
 module Input = {
   type inputLabel = {
     basic: bool,
