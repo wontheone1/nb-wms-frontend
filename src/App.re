@@ -31,12 +31,16 @@ let reducer = (state, action) => {
   };
 };
 
+let initialLocations: array(M.location) = [||];
+
 [@react.component]
 let make = () => {
   let (state, dispatch) = React.useReducer(reducer, initialState);
   let (signedIn, setSignedIn) = React.useState(() => false);
   let (accountDetail: option(M.accountDetailType), setAccountDetail) =
     React.useState(() => None);
+  let (locations: array(M.location), setLocations) =
+    React.useState(() => initialLocations);
 
   let signOut = () => {
     setSignedIn(_ => false);
@@ -99,7 +103,7 @@ let make = () => {
     />
     {signedIn
        ? <div>
-           <Locations searchQuery={state.searchQuery} />
+           <Locations locations searchQuery={state.searchQuery} setLocations />
            <CreateLocationForm />
          </div>
        : <div />}

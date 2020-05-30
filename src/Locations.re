@@ -9,14 +9,9 @@ type column =
 type sortDirection = Ui.Table.sortDirection;
 
 [@react.component]
-let make = (~searchQuery: string) => {
-  let initialLocations: array(location) = [||];
-  let (locations: array(location), setLocations) =
-    React.useState(() => initialLocations);
-
+let make = (~locations, ~searchQuery: string, ~setLocations) => {
   let (sortedByColumn, setSortedByColumn) = React.useState(() => Id);
   let (direction, setDirection) = React.useState(() => Ui.Table.Ascending);
-
   let handleSort = (clickedColumn: column, _: ReactEvent.Mouse.t) =>
     if (sortedByColumn != clickedColumn) {
       setSortedByColumn(_ => clickedColumn);
