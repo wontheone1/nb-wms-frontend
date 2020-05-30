@@ -56,6 +56,7 @@ let make = (~locations, ~searchQuery: string, ~setLocations) => {
           onClick={handleSort(Description)}>
           {j|세부사항|j}->React.string
         </Ui.Table.HeaderCell>
+        <Ui.Table.HeaderCell> {j|삭제|j}->React.string </Ui.Table.HeaderCell>
       </Ui.Table.Row>
     </Ui.Table.Header>
     <Ui.Table.Body>

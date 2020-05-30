@@ -7,4 +7,7 @@ let make = (~location: location) =>
   <Ui.Table.Row key={location.id}>
     <Ui.Table.Cell> location.id->React.string </Ui.Table.Cell>
     <Ui.Table.Cell> location.desc->React.string </Ui.Table.Cell>
+    <Ui.Button onClick={_ => Js.log(location)}>
+      {j|삭제|j}->React.string
+    </Ui.Button>
   </Ui.Table.Row>;
