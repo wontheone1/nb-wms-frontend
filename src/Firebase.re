@@ -1,6 +1,9 @@
 [@bs.module "./Firebase.js"]
 external createLocation: (string, string) => unit = "createLocation";
 
+[@bs.module "./Firebase.js"]
+external deleteLocation: string => unit = "deleteLocation";
+
 [@bs.module "./Firebase.js"] external readItems: unit => unit = "readItems";
 
 [@bs.module "./Firebase.js"]
