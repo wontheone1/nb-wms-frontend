@@ -82,12 +82,7 @@ let make = (~locations, ~searchQuery: string, ~setLocations) => {
          };
 
        filteredLocations
-       ->Belt.Array.map((loc: location) => {
-           <Ui.Table.Row key={loc.id}>
-             <Ui.Table.Cell> loc.id->React.string </Ui.Table.Cell>
-             <Ui.Table.Cell> loc.desc->React.string </Ui.Table.Cell>
-           </Ui.Table.Row>
-         })
+       ->Belt.Array.map((location: location) => <LocationRow location />)
        ->React.array}
     </Ui.Table.Body>
   </Ui.Table>;
