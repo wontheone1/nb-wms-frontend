@@ -14,9 +14,6 @@ let sessionInfoStyle =
     (),
   );
 
-let hiddenDisplayStyle = ReactDOMRe.Style.make(~display="none", ());
-let signinPlaceholder = ReactDOMRe.Style.make();
-
 let initialState: M.state = {searchQuery: ""};
 
 let reducer: (M.state, M.action) => M.state =
@@ -76,10 +73,7 @@ let make = () => {
       ->React.string
     </Ui.Header>
     <Menu accountDetail dispatch signedIn signOut />
-    <div
-      style={signedIn ? hiddenDisplayStyle : signinPlaceholder}
-      id="signin-placeholder"
-    />
+    <SignInUiPlaceholder signedIn />
     {signedIn
        ? <Ui.Tab menu={secondary: true, pointing: true} panes /> : <div />}
   </div>;
