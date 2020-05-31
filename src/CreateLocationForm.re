@@ -24,7 +24,7 @@ let make = () => {
         content: {j|추가|j},
         onClick: e =>
           {ReactEvent.Mouse.preventDefault(e);
-           Firebase.createLocation(locationIdValue, descValue);
+           Firebase.createOrEditLocation(locationIdValue, descValue);
            setLocationIdValue(_ => "");
            setDescValue(_ => "")},
       }

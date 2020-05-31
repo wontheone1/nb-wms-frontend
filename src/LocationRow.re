@@ -27,7 +27,7 @@ let make = (~location: location) => {
          <Ui.Button
            onClick={_ => {
              setEditing(_ => NotEditing);
-             Firebase.createLocation(location.id, newDesc);
+             Firebase.createOrEditLocation(location.id, newDesc);
            }}>
            {j|편집완료|j}->React.string
          </Ui.Button>
