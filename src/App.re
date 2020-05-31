@@ -41,6 +41,23 @@ let make = () => {
     React.useState(() => None);
   let (locations: array(M.location), setLocations) =
     React.useState(() => initialLocations);
+  let panes: array(Ui.Tab.pane) = [|
+    {
+      menuItem: {j|위치관리|j},
+      render: () =>
+        <Ui.Tab.Pane attached=false>
+          <Locations locations searchQuery={state.searchQuery} setLocations />
+          <CreateLocationForm />
+        </Ui.Tab.Pane>,
+    },
+    {
+      menuItem: {j|재고관리|j},
+      render: () =>
+        <Ui.Tab.Pane attached=false>
+          "not implemented"->React.string
+        </Ui.Tab.Pane>,
+    },
+  |];
 
   let signOut = () => {
     setSignedIn(_ => false);
@@ -102,10 +119,6 @@ let make = () => {
       id="signin-placeholder"
     />
     {signedIn
-       ? <div>
-           <Locations locations searchQuery={state.searchQuery} setLocations />
-           <CreateLocationForm />
-         </div>
-       : <div />}
+       ? <Ui.Tab menu={secondary: true, pointing: true} panes /> : <div />}
   </div>;
 };

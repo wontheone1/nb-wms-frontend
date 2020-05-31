@@ -88,6 +88,27 @@ module Modal = {
   };
 };
 
+module Tab = {
+  module Pane = {
+    [@bs.module "semantic-ui-react"] [@bs.scope "Tab"] [@react.component]
+    external make: (~attached: bool, ~children: React.element) => React.element =
+      "Pane";
+  };
+
+  type menu = {
+    secondary: bool,
+    pointing: bool,
+  };
+
+  type pane = {
+    menuItem: string,
+    render: unit => React.element,
+  };
+
+  [@bs.module "semantic-ui-react"] [@react.component]
+  external make: (~menu: menu, ~panes: array(pane)) => React.element = "Tab";
+};
+
 module Table = {
   [@bs.module "semantic-ui-react"] [@react.component]
   external make:
