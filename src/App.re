@@ -17,19 +17,14 @@ let sessionInfoStyle =
 let hiddenDisplayStyle = ReactDOMRe.Style.make(~display="none", ());
 let signinPlaceholder = ReactDOMRe.Style.make();
 
-// Record and variant need explicit declarations.
-type state = {searchQuery: string};
+let initialState: M.state = {searchQuery: ""};
 
-type action =
-  | SetSearchQuery(string);
-
-let initialState = {searchQuery: ""};
-
-let reducer = (state, action) => {
-  switch (action) {
-  | SetSearchQuery(query) => {searchQuery: query}
+let reducer: (M.state, M.action) => M.state =
+  (state, action) => {
+    switch (action) {
+    | M.SetSearchQuery(query) => {searchQuery: query}
+    };
   };
-};
 
 let initialLocations: array(M.location) = [||];
 
@@ -80,40 +75,7 @@ let make = () => {
       {j|NB 웨어하우스 메니지먼트 시스템에 오신 것을 환영합니다.|j}
       ->React.string
     </Ui.Header>
-    <Ui.Menu secondary=true>
-      <Ui.Menu.Item>
-        {switch (accountDetail) {
-         | Some({displayName, email}) =>
-           React.string({j|$displayName($email)|j})
-         | None => React.string({j|로그아웃 됨|j})
-         }}
-      </Ui.Menu.Item>
-      <Ui.Menu.Menu position="right">
-        <Ui.Menu.Item>
-          <Ui.Input
-            icon="search"
-            onChange={event => {
-              let value = ReactEvent.Form.target(event)##value;
-              dispatch(SetSearchQuery(value));
-            }}
-            placeholder={j|검색...|j}
-          />
-        </Ui.Menu.Item>
-        <Ui.Menu.Item>
-          <Ui.Modal
-            basic=true size="small" trigger={<Ui.Icon name="info circle" />}>
-            <a
-              href="https://fusejs.io/examples.html#extended-search"
-              target="_blank">
-              "https://fusejs.io/examples.html#extended-search"->React.string
-            </a>
-          </Ui.Modal>
-        </Ui.Menu.Item>
-        {signedIn
-           ? <Ui.Menu.Item name="logout" onClick={_event => signOut()} />
-           : <div />}
-      </Ui.Menu.Menu>
-    </Ui.Menu>
+    <Menu accountDetail dispatch signedIn signOut />
     <div
       style={signedIn ? hiddenDisplayStyle : signinPlaceholder}
       id="signin-placeholder"
