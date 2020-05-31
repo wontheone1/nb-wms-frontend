@@ -19,7 +19,7 @@ let make = (~location: location) => {
            <Ui.Input
              action={
                content: {j|편집완료|j},
-               onClick: e =>
+               onClick: _ =>
                  {setEditing(_ => NotEditing);
                   Firebase.createOrEditLocation(location.id, newDesc)},
              }
