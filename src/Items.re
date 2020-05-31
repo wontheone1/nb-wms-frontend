@@ -1,27 +1,27 @@
 module Ui = SemanticUi;
-
-type location = Model.location;
+module M = Model;
 
 type column =
   | Id
-  | Description;
+  | Name
+  | Location;
 
 type sortDirection = Ui.Table.sortDirection;
 
 [@react.component]
-let make = (~locations, ~searchQuery: string, ~setLocations) => {
+let make = (~items, ~searchQuery: string, ~setItems) => {
   let (sortedByColumn, setSortedByColumn) = React.useState(() => Id);
   let (direction, setDirection) = React.useState(() => Ui.Table.Ascending);
   let handleSort = (clickedColumn: column, _: ReactEvent.Mouse.t) =>
     if (sortedByColumn != clickedColumn) {
       setSortedByColumn(_ => clickedColumn);
       setDirection(_ => Ui.Table.Ascending);
-      setLocations(oldLocations =>
-        Belt.SortArray.stableSortBy(
-          oldLocations, (locA: location, locB: location) =>
+      setItems(oldItems =>
+        Belt.SortArray.stableSortBy(oldItems, (itemA: M.item, itemB: M.item) =>
           switch (clickedColumn) {
-          | Id => compare(locA.id, locB.id)
-          | Description => compare(locA.desc, locB.desc)
+          | Id => compare(itemA.articleId, itemB.articleId)
+          | Name => compare(itemA.name, itemB.name)
+          | Location => compare(itemA.location, itemB.location)
           }
         )
       );
@@ -33,13 +33,8 @@ let make = (~locations, ~searchQuery: string, ~setLocations) => {
         | Ui.Table.NoDirection => Ui.Table.Ascending
         }
       );
-      setLocations(oldLocations => Belt.Array.reverse(oldLocations));
+      setItems(oldElements => Belt.Array.reverse(oldElements));
     };
-
-  React.useEffect0(() => {
-    Firebase.readLocations(setLocations);
-    None;
-  });
 
   <Ui.Table sortable=true celled=true fixed=true>
     <Ui.Table.Header>
@@ -47,46 +42,49 @@ let make = (~locations, ~searchQuery: string, ~setLocations) => {
         <Ui.Table.HeaderCell
           sorted={sortedByColumn == Id ? direction : Ui.Table.NoDirection}
           onClick={handleSort(Id)}>
-          {j|위치 아이디|j}->React.string
+          {j|제품 아이디|j}->React.string
+        </Ui.Table.HeaderCell>
+        <Ui.Table.HeaderCell
+          sorted={sortedByColumn == Name ? direction : Ui.Table.NoDirection}
+          onClick={handleSort(Name)}>
+          {j|제품 이름|j}->React.string
         </Ui.Table.HeaderCell>
         <Ui.Table.HeaderCell
           sorted={
-            sortedByColumn == Description ? direction : Ui.Table.NoDirection
+            sortedByColumn == Location ? direction : Ui.Table.NoDirection
           }
-          onClick={handleSort(Description)}>
-          {j|세부사항|j}->React.string
-        </Ui.Table.HeaderCell>
-        <Ui.Table.HeaderCell>
-          {j|세부사항 편집|j}->React.string
+          onClick={handleSort(Location)}>
+          {j|제품 위치 아이디|j}->React.string
         </Ui.Table.HeaderCell>
         <Ui.Table.HeaderCell> {j|삭제|j}->React.string </Ui.Table.HeaderCell>
       </Ui.Table.Row>
     </Ui.Table.Header>
     <Ui.Table.Body>
-      {let filteredLocations: array(location) =
+      {let filteredItems: array(M.item) =
          switch (searchQuery) {
-         | "" => locations
+         | "" => items
          | _ =>
            let result =
-             FuseJs.createFuse(locations, FuseJs.locationFuseOptions)
+             FuseJs.createFuse(items, FuseJs.itemFuseOptions)
              ->FuseJs.search(searchQuery);
 
            Js.log2("Search result", result);
 
            Belt.Array.map(
              result,
-             (searchedLocation: FuseJs.searchedItem(location)) => {
-               let loc: location = {
-                 id: searchedLocation.item.id,
-                 desc: searchedLocation.item.desc,
+             (searchedItem: FuseJs.searchedItem(M.item)) => {
+               let loc: M.item = {
+                 articleId: searchedItem.item.articleId,
+                 name: searchedItem.item.name,
+                 location: searchedItem.item.location,
                };
                loc;
              },
            );
          };
 
-       filteredLocations
-       ->Belt.Array.map((location: location) => <LocationRow location />)
+       filteredItems
+       ->Belt.Array.map((item: M.item) => <ItemRow item />)
        ->React.array}
     </Ui.Table.Body>
   </Ui.Table>;

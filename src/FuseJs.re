@@ -7,19 +7,17 @@ type options = {
 };
 
 [@bs.new] [@bs.module "fuse.js"]
-external createFuse: (array(Model.location), options) => t = "default";
+external createFuse: (array('a), options) => t = "default";
 
-type searchedLocation = {
-  item: Model.location,
+type searchedItem('a) = {
+  item: 'a,
   refIndex: int,
   score: float,
 };
 
-type locationSearchResult = array(searchedLocation);
+[@bs.send] external search: (t, string) => array('a) = "search";
 
-[@bs.send] external search: (t, string) => locationSearchResult = "search";
-
-let fuseOptions: options = {
+let locationFuseOptions: options = {
   // isCaseSensitive: false,
   includeScore: true,
   // shouldSort: true,
@@ -30,5 +28,11 @@ let fuseOptions: options = {
   // threshold: 0.6,
   // distance: 100,
   keys: [|"id", "desc"|],
+  useExtendedSearch: true,
+};
+
+let itemFuseOptions: options = {
+  includeScore: true,
+  keys: [|"id", "name", "location"|],
   useExtendedSearch: true,
 };

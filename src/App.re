@@ -24,6 +24,11 @@ let reducer: (M.state, M.action) => M.state =
   };
 
 let initialLocations: array(M.location) = [||];
+let initialItems: array(M.item) = [|
+  {articleId: "123", name: "socks", location: "12345"},
+  {articleId: "123", name: "socks", location: "12345"},
+  {articleId: "2344", name: "gloves", location: "345555"},
+|];
 
 [@react.component]
 let make = () => {
@@ -33,6 +38,8 @@ let make = () => {
     React.useState(() => None);
   let (locations: array(M.location), setLocations) =
     React.useState(() => initialLocations);
+  let (items: array(M.item), setItems) = React.useState(() => initialItems);
+
   let panes: array(Ui.Tab.pane) = [|
     {
       menuItem: {j|위치관리|j},
@@ -46,7 +53,7 @@ let make = () => {
       menuItem: {j|재고관리|j},
       render: () =>
         <Ui.Tab.Pane attached=false>
-          "not implemented"->React.string
+          <Items items searchQuery={state.searchQuery} setItems />
         </Ui.Tab.Pane>,
     },
   |];
