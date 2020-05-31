@@ -15,22 +15,22 @@ let make = (~location: location) => {
     {switch (editing) {
      | Editing =>
        <Ui.Table.Cell>
-         <Ui.Input
-           label={basic: true, content: {j|위치 아이디|j}}
-           onChange={(event: ReactEvent.Form.t) => {
-             let value = ReactEvent.Form.target(event)##value;
-             setNewDesc(_ => value);
-           }}
-           placeholder={j|새로운 세부사항 입력|j}
-           value=newDesc
-         />
-         <Ui.Button
-           onClick={_ => {
-             setEditing(_ => NotEditing);
-             Firebase.createOrEditLocation(location.id, newDesc);
-           }}>
-           {j|편집완료|j}->React.string
-         </Ui.Button>
+         <form>
+           <Ui.Input
+             action={
+               content: {j|편집완료|j},
+               onClick: e =>
+                 {setEditing(_ => NotEditing);
+                  Firebase.createOrEditLocation(location.id, newDesc)},
+             }
+             onChange={(event: ReactEvent.Form.t) => {
+               let value = ReactEvent.Form.target(event)##value;
+               setNewDesc(_ => value);
+             }}
+             placeholder={j|새로운 세부사항 입력|j}
+             value=newDesc
+           />
+         </form>
        </Ui.Table.Cell>
      | NotEditing =>
        <Ui.Table.Cell>
