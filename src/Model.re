@@ -8,7 +8,6 @@ type action =
 
 type item = {
   articleId: string,
-  name: string,
   location: string,
 };
 

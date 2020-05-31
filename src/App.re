@@ -24,11 +24,22 @@ let reducer: (M.state, M.action) => M.state =
   };
 
 let initialLocations: array(M.location) = [||];
+
 let initialItems: array(M.item) = [|
-  {articleId: "123", name: "socks", location: "12345"},
-  {articleId: "123", name: "socks", location: "12345"},
-  {articleId: "2344", name: "gloves", location: "345555"},
+  {articleId: "123", location: "12345"},
+  {articleId: "123", location: "12345"},
+  {articleId: "2344", location: "345555"},
 |];
+
+let initialArticles: array(M.article) = [|
+  {id: "12345", name: "socks"},
+  {id: "56789", name: "mask"},
+  {id: "14892", name: "gloves"},
+|];
+
+let mapItemIdToArticleName = (items, articles) => {
+  
+}
 
 [@react.component]
 let make = () => {
@@ -38,6 +49,8 @@ let make = () => {
     React.useState(() => None);
   let (locations: array(M.location), setLocations) =
     React.useState(() => initialLocations);
+  let (articles: array(M.article), setArticles) =
+    React.useState(() => initialArticles);
   let (items: array(M.item), setItems) = React.useState(() => initialItems);
 
   let panes: array(Ui.Tab.pane) = [|
@@ -53,7 +66,7 @@ let make = () => {
       menuItem: {j|재고관리|j},
       render: () =>
         <Ui.Tab.Pane attached=false>
-          <Items items searchQuery={state.searchQuery} setItems />
+          <Items articles items searchQuery={state.searchQuery} setItems />
         </Ui.Tab.Pane>,
     },
   |];

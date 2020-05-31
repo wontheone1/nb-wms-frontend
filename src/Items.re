@@ -9,7 +9,7 @@ type column =
 type sortDirection = Ui.Table.sortDirection;
 
 [@react.component]
-let make = (~items, ~searchQuery: string, ~setItems) => {
+let make = (~articles, ~items, ~searchQuery: string, ~setItems) => {
   let (sortedByColumn, setSortedByColumn) = React.useState(() => Id);
   let (direction, setDirection) = React.useState(() => Ui.Table.Ascending);
   let handleSort = (clickedColumn: column, _: ReactEvent.Mouse.t) =>
